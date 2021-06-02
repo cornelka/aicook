@@ -16,7 +16,7 @@
 
 
 ## Use
-https://yourhost:5000/
+http://yourhost:5000/
 
 ## Credentials
 Send me a request for a user/pass
