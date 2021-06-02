@@ -11,9 +11,12 @@
 
 
 ## Startup
-cd aicook
-python run.py
+1. cd aicook
+2. python run.py
 
 
 ## Use
-https://host:5000/
+https://yourhost:5000/
+
+## Credentials
+Send me a request for a user/pass
