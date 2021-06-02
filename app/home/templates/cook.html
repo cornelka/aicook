@@ -1,0 +1,274 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} AIcook {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+ <form role="form" method="post" action="" enctype="multipart/form-data">
+   {{ form.hidden_tag() }}  
+                              
+        <div class="row">
+          <div class="col-lg-4 col-md-4">
+            <div class="card">
+
+              
+                <div class="card-header">
+                  <h5 class="title">Detect</h5>
+
+                  <h6 class="card-category">
+					{% with messages = get_flashed_messages(category_filter=["detect"]) %}
+					  {% if messages %}
+						<ul>
+						{% for message in messages %}
+						  <li>{{ message }}</li>
+						{% endfor %}
+						</ul>
+					  {% else %}
+                        Upload your fridge content					  
+					  {% endif %}
+					{% endwith %}				  				  
+                  </h6>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                      <div class="col-md-12 px-md-4">
+                        <div class="form-group">
+                          <label>Choose Photo</label>
+						 {{ form.detect_image(placeholder="Click here to upload a photo") }}                        
+                        </div>
+                      </div>
+
+                    </div>
+                    
+                </div>
+                <div class="card-footer">
+                  <button type="submit" name="btn_detect" class="btn btn-fill btn-primary" title="Detect the ingredients in a fridge foto"><i class="tim-icons icon-camera-18"> </i> Detect</button>                
+                  <button type="submit" name="btn_all" class="btn btn-fill btn-primary" title="Detect, Pair and Present all at once!" >Detect,Pair,Present</button>                				  
+                </div>
+            </div>
+          </div>
+          
+{% if filename %}
+          <div class="col-lg-4 col-md-4">
+            <div class="card">              
+                <div class="card-header">
+                  <h5 class="title">Uploaded file</h5>
+
+                  <h6 class="card-category">
+                    {% if msg_upload %}
+                        {{ msg_upload | safe }}
+                    {% else %}
+                        {{filename}}
+                    {% endif %} 
+                  </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">                      
+						<img src="{{ url_for('home_blueprint.display_orig_image', filename=filename) }}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <div class="card">
+
+              
+                <div class="card-header">
+                  <h5 class="title">Detection result</h5>
+
+                  <h6 class="card-category">
+                    {% if msg_detection_result %}
+                        {{ msg_detection_result | safe }}
+                    {% else %}
+                        We found something !
+                    {% endif %} 
+                  </h6>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+                        					
+                        <img src="{{ url_for('home_blueprint.display_detection_image', filename=filename) }}" class="img-fluid">								
+                    </div>                    
+                    <div class="row">			
+						{% for table in top_ingredients %}
+									{{ table|safe }}
+						{% endfor %}
+                    </div>                    
+					
+                </div>
+            </div>
+          </div>
+		  
+{% endif %}          
+      </div>
+
+        <div class="row">
+		
+          <div class="col-lg-4 col-md-4">
+		  
+            <div class="card">
+
+             
+                <div class="card-header">
+                  <h5 class="title">Pair a recipe and wine</h5>
+
+                  <h6 class="card-category">
+					{% with messages = get_flashed_messages(category_filter=["pair"]) %}
+					  {% if messages %}
+						<ul>
+						{% for message in messages %}
+						  <li>{{ message }}</li>
+						{% endfor %}
+						</ul>
+					  {% else %}
+                        Show a recipe and wine for the found ingredients
+					  {% endif %}
+					{% endwith %}					  
+                  </h6>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                      <div class="col-md-12 px-md-4">
+                        <div class="form-group">
+                          <label>Ingredients</label>
+                          {{ form.pair_ingredients(placeholder="Manually provide Ingredients to test Pairing", class="form-control") }}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    </div>
+                    
+              
+                <div class="card-footer">
+                  <button type="submit" name="btn_pair" class="btn btn-fill btn-primary", title="Get a recipe and wine for a list of ingredients (in order of importance)" ><i class="tim-icons icon-caps-small"> </i> Pair</button>                
+                </div>
+			  </div>
+
+            </div>
+{% if pairing %}
+          <div class="col-lg-8 col-md-8">
+            <div class="card">
+
+              
+                <div class="card-header">
+                  <h5 class="title">Food and Wine</h5>
+
+                  <h6 class="card-category">
+                    {% if msg_detection_result %}
+                        {{ msg_detection_result | safe }}
+                    {% else %}
+                        Pairing:
+                    {% endif %} 
+                  </h6>
+                </div>
+
+                <div class="card-body">              
+                    <div class="row">			
+						<div class="col-md-12 px-md-4">
+							{{ pairing }}
+						</div>
+                    </div>                    
+					
+                </div>
+            </div>
+          </div>
+		  
+{% endif %}     
+          
+		</div>
+          
+        
+
+       <div class="row">
+          <div class="col-lg-4 col-md-4">
+		  
+		  
+            <div class="card">
+                <div class="card-header">
+                  <h5 class="title">Present a menu</h5>
+
+                  <h6 class="card-category">
+					{% with messages = get_flashed_messages(category_filter=["present"]) %}
+					  {% if messages %}
+						<ul>
+						{% for message in messages %}
+						  <li>{{ message }}</li>
+						{% endfor %}
+						</ul>
+					  {% else %}
+                        Present my food and wine like a real sommelier
+					  {% endif %}
+					{% endwith %}									
+                  </h6>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                      <div class="col-md-12 px-md-4">
+                        <div class="form-group">
+                          <label>Food and Wine</label>
+                          {{ form.present_menu(placeholder="Manually provide a Menu to test Presentation" , class="form-control") }}
+                        </div>
+                      </div>
+
+                    </div>
+                    
+                </div>
+                <div class="card-footer">
+                  <button type="submit" name="btn_present" class="btn btn-fill btn-primary" title="Get the generated presentation of the wine"><i class="tim-icons icon-chat-33"> </i> Present</button>                
+                </div>
+
+
+
+            </div>
+          </div>
+{% if presenting %}
+          <div class="col-lg-8 col-md-8">
+            <div class="card">
+
+              
+                <div class="card-header">
+                  <h5 class="title">We present you </h5>
+
+                  <h6 class="card-category">
+                    {% if msg_presenting %}
+                        {{ msg_presenting | safe }}
+                    {% else %}
+                        Sommelier text:
+                    {% endif %} 
+                  </h6>
+                </div>
+
+                <div class="card-body">                
+                    <div class="row">			
+						<div class="col-md-12 px-md-4">
+							{{ presenting }}
+						</div>
+                    </div>                    
+					
+                </div>
+            </div>
+          </div>
+		  
+{% endif %}       
+	 </div> 
+      <input type="submit" value="Reset" class="btn btn-fill btn-secondary" name="btn_reset" />     	
+</form>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
