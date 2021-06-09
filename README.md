@@ -1,13 +1,19 @@
 # aicook AKA aisommelier
 
-Public version: https://aisommelier.azurewebsites.net/
-Presentation: 
-Exploration &model training: see the training folder
+### Public version
+https://aisommelier.azurewebsites.net/
+
+### Presentation
+
+### Exploration &model training
+See the training folder
+
+
 
 ## Installation
-A. Use the accompanied docker file
+### A. Use the accompanied docker file
 
-B. 
+### B. manual deploy
 1. git clone https://github.com/cornelka/aicook
 2. cd aicook
 3. pip install -r https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt #yoloV5 requirements
