@@ -27,7 +27,7 @@
 						{% endfor %}
 						</ul>
 					  {% else %}
-                        Upload your fridge content					  
+                        Upload your fridge content <a href="https://github.com/cornelka/fridge_images" target="blank"> You can find some images here </a>
 					  {% endif %}
 					{% endwith %}				  				  
                   </h6>
@@ -83,11 +83,15 @@
                   <h5 class="title">Detection result</h5>
 
                   <h6 class="card-category">
-                    {% if msg_detection_result %}
-                        {{ msg_detection_result | safe }}
-                    {% else %}
-                        We found something !
-                    {% endif %} 
+					{% with messages = get_flashed_messages(category_filter=["detection_result"]) %}
+					  {% if messages %}
+						{% for message in messages %}
+						  {{ message }}
+						{% endfor %}
+					  {% else %}
+                        We found some ingredients !
+					  {% endif %}
+					{% endwith %}					  				  
                   </h6>
                 </div>
 
@@ -142,7 +146,7 @@
                       <div class="col-md-12 px-md-4">
                         <div class="form-group">
                           <label>Ingredients</label>
-                          {{ form.pair_ingredients(placeholder="Manually provide Ingredients to test Pairing", class="form-control") }}
+                          {{ form.pair_ingredients(placeholder="Give some ingredients (comma seperated, in order of importance)", class="form-control") }}
                         </div>
                       </div>
                     </div>
@@ -151,7 +155,7 @@
                     
               
                 <div class="card-footer">
-                  <button type="submit" name="btn_pair" class="btn btn-fill btn-primary", title="Get a recipe and wine for a list of ingredients (in order of importance)" ><i class="tim-icons icon-caps-small"> </i> Pair</button>                
+                  <button type="submit" name="btn_pair" class="btn btn-fill btn-primary", title="Get a recipe and wine for a list of ingredients " ><i class="tim-icons icon-caps-small"> </i> Pair</button>                
                 </div>
 			  </div>
 
@@ -163,23 +167,28 @@
               
                 <div class="card-header">
                   <h5 class="title">Food and Wine</h5>
-
-                  <h6 class="card-category">
-                    {% if msg_detection_result %}
-                        {{ msg_detection_result | safe }}
-                    {% else %}
-                        Pairing:
-                    {% endif %} 
-                  </h6>
                 </div>
 
-                <div class="card-body">              
+                <div class="card-body">         
                     <div class="row">			
 						<div class="col-md-12 px-md-4">
-							{{ pairing }}
+							<div class="row">			
+								{% for table in recipe %}
+											{{ table|safe }}
+								{% endfor %}
+							</div>  
 						</div>
-                    </div>                    
-					
+                    </div>                    					
+                    <div class="row">			
+						<div class="col-md-12 px-md-4">
+							<div class="row">			
+								{% for table in pairing %}
+											{{ table|safe }}
+								{% endfor %}
+							</div>  
+						</div>
+                    </div>                    					
+
                 </div>
             </div>
           </div>
@@ -188,15 +197,14 @@
           
 		</div>
           
-        
-
+    
        <div class="row">
           <div class="col-lg-4 col-md-4">
 		  
 		  
             <div class="card">
                 <div class="card-header">
-                  <h5 class="title">Present a menu</h5>
+                  <h5 class="title">Presentation</h5>
 
                   <h6 class="card-category">
 					{% with messages = get_flashed_messages(category_filter=["present"]) %}
@@ -207,7 +215,7 @@
 						{% endfor %}
 						</ul>
 					  {% else %}
-                        Present my food and wine like a real sommelier
+                        Present wine like a real sommelier
 					  {% endif %}
 					{% endwith %}									
                   </h6>
@@ -219,8 +227,8 @@
 
                       <div class="col-md-12 px-md-4">
                         <div class="form-group">
-                          <label>Food and Wine</label>
-                          {{ form.present_menu(placeholder="Manually provide a Menu to test Presentation" , class="form-control") }}
+                          <label>Wine</label>
+                          {{ form.present_wine(placeholder="Give some wine keywords (space seperated words)" , class="form-control") }}
                         </div>
                       </div>
 
@@ -255,7 +263,9 @@
                 <div class="card-body">                
                     <div class="row">			
 						<div class="col-md-12 px-md-4">
-							{{ presenting }}
+							<p class="blockquote blockquote-primary">
+								{{ presenting }}
+							</p>
 						</div>
                     </div>                    
 					
