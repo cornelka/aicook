@@ -1,8 +1,8 @@
 # aicook AKA aisommelier
 
-
 ## Presentation
 See the presentation folder. The presentation contains all links to external sources (youtube, wandb,roboflow,docker,github,...)
+
 ## Exploration & model training
 See the training folder. This is devided into the 3 main application parts: 
 - detect (vision: ingredient detection)
@@ -10,15 +10,13 @@ See the training folder. This is devided into the 3 main application parts:
 - present (text generation: Sommelier text)
 
 ## Application 
-All the other files and folders (the main dataset for the PAIR part is however too large for github and is on request).
-In the application the customised part is primarily situated under /app/home/
+This consists of all the other files and folders. The customised part is primarily situated under /app/home/
 - routes.py that handles the main page logic
 - a backend folder with subfolders for the 3 parts detect, pair and present
+- in the pair directory datafiles are needed which can be found at https://drive.google.com/file/d/1IfobqPeQ0n1STARLhlwXOca-AO2iNHAm/view?usp=sharing
 
 ## Live version
 https://aisommelier.azurewebsites.net/
-
-
 
 ## Installation
 ### A. Use the accompanied docker file
