@@ -18,6 +18,9 @@ This consists of all the other files and folders. The customised part is primari
 ## Live version
 https://aisommelier.azurewebsites.net/
 
+## Promo video
+https://youtu.be/lk2s39rf6I4
+
 ## Installation
 ### A. Use the accompanied docker file
 ### B. manual deploy
